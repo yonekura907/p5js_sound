@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>05 array - stepSequencer</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <script src="js/p5.min.js"></script>
+  <script src="js/p5.dom.js"></script>
+  <script src="js/p5.sound.min.js"></script>
+  <script>
+  // シーケンス用配列
+  var sqArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  var loopCount = 0; // ループカウント
+
+  var osc;
+  var env;
+  var fft;
+  var delay;
+
+  var btnArr = []; // 入力ボタン用配列
+
+  function setup(){
+    createCanvas(900,600);
+    noFill();
+    noStroke();
+    frameRate(32);
+    smooth();
+
+    var midiNote = 65; //ド
+    var freq = midiToFreq(midiNote);
+    // console.log(freq);
+
+    // エンベロープの設定
+    var attackTime = 0.001; // 最大音に到達する時間
+    var attackLevel = 0.9; // 最大レベル
+    var decayTime = 0.3; // 持続音に達する時間
+    var susPercent = 0.2; // 持続レベル
+    var sustainTime = 0.1; // 音を持続する時間
+    var releaseTime = 0.5; // 音が消えるまでの時間
+    var releaseLevel = 0; // 消えるレベル
+
+
+    env = new p5.Env();
+    env.setADSR(attackTime, decayTime, susPercent, releaseTime);
+    env.setRange(attackLevel, releaseLevel);
+
+    osc = new p5.Oscillator('triangle'); //sine, triangle, sawtooth, square
+
+    delay = new p5.Delay();
+    delay.process(osc, .12, .7, 2300);
+
+    osc.start();
+    osc.amp(env);
+    osc.freq(freq);
+
+
+    // 入力ボタンの生成
+    for (var i = 0; i < sqArr.length; i++) {
+      btnArr[i] = createDiv(i); //<div>の生成
+      btnArr[i].id(i); //<div>のidにi番を設定
+      btnArr[i].class('btn'); //<div>のclassにbtn番を設定
+      btnArr[i].position(50 * i + 30, 80); //<button>の位置
+      btnArr[i].mousePressed(function(e){
+         //<button>を押した時のイベント
+        // console.log(this.elt.id);
+        changeInput(this.elt.id);
+      });
+    }
+  }
+
+
+
+  function draw() {
+    background(255);
+
+    setSq(); //シーケンサーの実行
+
+    // シーケンス用配列のループカンター番目の値が1なら
+    if(sqArr[loopCount] !== 0){
+      env.play(osc);// 再生
+    }
+    // ループカンターをインクリメント
+    if(frameCount % 4 === 0){
+        // ループカンターをインクリメント
+        loopCount++;
+    }
+    // ループカウンターの数がシーケンス用配列の最大になったら
+    if(loopCount >= sqArr.length){
+      loopCount = 0; //ループカンターを0に戻す
+    }
+  }
+
+
+
+  // シーケンサーの設置
+  function setSq(){
+    // console.log(loopCount);
+    // console.log(sqArr[loopCount]);
+    // シーケンサー用の円の配置
+    for (var i = 0; i < sqArr.length; i++) {
+      // シーケンス用配列の値が0なら
+      if(sqArr[i] == 1){
+        fill(255, 150, 0); // 塗りはオレンジ
+      } else {
+        fill(220); // 塗りはグレー
+      }
+        ellipse(50*i + 50, 100, 40, 40);
+      // ループカウンターと円のi番目が一致したら
+      if(i == loopCount) {
+        // 赤く塗られる
+        fill(255, 0, 0);
+        ellipse(50*i + 50, 100, 40, 40);
+      }
+    }
+  }
+
+
+  // インプット入力の値をシーケンス用配列に設定する
+  function changeInput(value) {
+    if( sqArr[value] == 0 ){
+      // トグル 現状の値が0なら1を設定
+      sqArr[value] = 1;
+    } else {
+      sqArr[value] = 0;
+      // トグル 現状の値が1なら0を設定
+    }
+    setSq(); // シーケンサーの設置
+  }
+  </script>
+</body>
+</html>

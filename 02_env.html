@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>02 envelope - stepSequencer</title>
+</head>
+<body>
+  <script src="js/p5.min.js"></script>
+  <script src="js/p5.sound.min.js"></script>
+  <script>
+
+  // エンベロープの設定
+  var attackTime = 0.001; // 最大音に到達する時間
+  var attackLevel = 0.9; // 最大レベル
+  var decayTime = 0.3; // 持続音に達する時間
+  var susPercent = 0.2; // 持続レベル
+  var sustainTime = 0.1; // 音を持続する時間
+  var releaseTime = 0.5; // 音が消えるまでの時間
+  var releaseLevel = 0; // 消えるレベル
+
+  var env = new p5.Env();
+  env.setADSR(attackTime, decayTime, susPercent, releaseTime);
+  env.setRange(attackLevel, releaseLevel);
+
+  var osc = new p5.Oscillator();
+  osc.setType('sine'); //sine, triangle, sawtooth, square
+
+  osc.start();
+  osc.amp(env);
+
+  osc.freq(640);
+  env.play();
+
+  </script>
+</body>
+</html>

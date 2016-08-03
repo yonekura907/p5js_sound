@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>01 osc - stepSequencer</title>
+</head>
+<body>
+  <script src="js/p5.min.js"></script>
+  <script src="js/p5.sound.min.js"></script>
+  <script>
+
+    var osc = new p5.Oscillator('sawtooth'); //オシレーター sine, triangle, sawtooth, square
+    osc.start();
+    osc.amp(0.5); // アンプ 音の大きさ
+    osc.freq(440); // 周波数 音の高さ
+
+  </script>
+</body>
+</html>
