@@ -1,8 +1,8 @@
 var scaleArray = [60, 64, 67, 69, 72, 76, 79, 81, 84 ,88, 91];
 
-scaleArray = _(scaleArray).shuffle();
+scaleArray = _(scaleArray).shuffle(); // ノートナンバーをシャッフル
 
-var a,b,c,d,e,f;
+var a,b,c,d,e,f; // インスタンス
 
 
 // 初期設定
@@ -67,7 +67,7 @@ function Sequencer(aY,aMidi){
     // this.delay = new p5.Delay();
     // this.delay.process(this.osc, .08, .5, 1300);
 
-    this.a = new p5.Amplitude();
+    // this.a = new p5.Amplitude();
 
     // シーケンス用配列
     this.sqArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];

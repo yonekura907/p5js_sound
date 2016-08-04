@@ -14,13 +14,12 @@
   var fft;
 
   function setup(){
-
     createCanvas(800,500);
     noFill();
 
     var midiNote = 60; //ド
     var freq = midiToFreq(midiNote); // MIDIを周波数に置き換える
-    console.log(freq);
+    console.log(freq); // コンソールで周波数を確認
 
 
     // エンベロープの設定
@@ -46,7 +45,7 @@
     osc.freq(freq);
     env.play(osc);
 
-    fft = new p5.FFT(); //波形を出すクラス
+    fft = new p5.FFT(); //波形のインスタンス
   }
 
 

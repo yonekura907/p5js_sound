@@ -25,7 +25,7 @@
     var releaseTime = 0.5; // 音が消えるまでの時間
     var releaseLevel = 0; // 消えるレベル
 
-    env = new p5.Env();
+    env = new p5.Env(); // エンベロープのインスタンス
     env.setADSR(attackTime, decayTime, susPercent, releaseTime);
     env.setRange(attackLevel, releaseLevel);
 
@@ -33,9 +33,9 @@
     osc.start();
     osc.amp(env);
     osc.freq(640);
-    env.play();
+    env.play(); // エンベロープの実行
 
-    fft = new p5.FFT(); //波形を出すクラス
+    fft = new p5.FFT(); //波形のインスタンス
   }
 
 
