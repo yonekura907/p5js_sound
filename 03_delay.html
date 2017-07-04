@@ -26,6 +26,9 @@
     osc.freq(640);
     env.play();  // エンベロープの実行
 
+    var delay = new p5.Delay(); // 遅延音
+    delay.process(osc, .12, .7, 2300);
+
     </script>
 </body>
 </html>
