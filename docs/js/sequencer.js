@@ -149,6 +149,7 @@ Sequencer.prototype.draw = function(){
     stroke(255, 150, 0, 127);
     var x, y;
     var waveform = fft.waveform();
+    console.log('waveform: '+ waveform);
     beginShape();
     for (var i = 0; i < waveform.length; i++) {
         x = map(i, 0, waveform.length, 0, width);
