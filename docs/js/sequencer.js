@@ -42,9 +42,7 @@ function windowResized() {
 
 
 function Sequencer(aY,aMidi){
-
     this.y = aY;
-
     var midiNote = aMidi;
     var freqValue = midiToFreq(midiNote);
 
@@ -103,8 +101,8 @@ function Sequencer(aY,aMidi){
 }
 
 
-Sequencer.prototype.draw = function(){
 
+Sequencer.prototype.draw = function(){
     // シーケンサー用の円の配置
     for (var i = 0; i < this.sqArr.length; i++) {
         noStroke(); //線なし
@@ -142,7 +140,6 @@ Sequencer.prototype.draw = function(){
     if(this.sqArr[this.loopCount] !== 0){
         this.env.play(this.osc, 0, this.sustainTime);
     }
-
 
     // FFT
     noFill();
